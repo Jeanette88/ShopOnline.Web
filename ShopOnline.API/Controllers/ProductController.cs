@@ -25,7 +25,7 @@ namespace ShopOnline.API.Controllers
                 var products = await this.productRepository.GetItems();
                 var productCategories = await this.productRepository.GetCategories();
 
-                if (productRepository == null || productCategories == null)
+                if (products == null || productCategories == null)
                 {
                     return NotFound();
                 }

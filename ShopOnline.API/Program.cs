@@ -1,5 +1,7 @@
 global using ShopOnline.API.Data;
 global using Microsoft.EntityFrameworkCore;
+global using ShopOnline.API.Repositories.Contracts;
+global using ShopOnline.API.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,9 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContextPool<ShopOnlineDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

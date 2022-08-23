@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ShopOnline.API.Extensions;
 using ShopOnline.API.Repositories.Contracts;
 using ShopOnline.Models.Dtos;
 
@@ -23,10 +24,17 @@ namespace ShopOnline.API.Controllers
             {
                 var products = await this.productRepository.GetItems();
                 var productCategories = await this.productRepository.GetCategories();
-                if (productRepository == null || productCategories == null)
-                    return NotFound();
-                else 
 
+                if (productRepository == null || productCategories == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    var productDtos = products.ConvertToDto(productCategories);
+
+                    return Ok(productDtos);
+                }
             }
             catch (Exception)
             {
